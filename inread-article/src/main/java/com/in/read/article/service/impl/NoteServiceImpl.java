@@ -14,13 +14,12 @@ import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.security.UserUtil;
 import com.in.read.framework.util.BeanUtil;
-import com.in.read.pojo.note.NoteAddReq;
-import com.in.read.pojo.note.NotePageReq;
-import com.in.read.pojo.note.NoteVo;
-import com.in.read.pojo.note.UserVo;
+import com.in.read.pojo.note.comment.NoteAddReq;
+import com.in.read.pojo.note.comment.NotePageReq;
+import com.in.read.pojo.note.comment.NoteVo;
+import com.in.read.pojo.note.user.UserVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 /**

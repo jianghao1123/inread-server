@@ -7,7 +7,7 @@ import com.in.read.article.service.LikeService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.constant.InreadConstant;
 import com.in.read.framework.security.UserUtil;
-import com.in.read.pojo.note.NoteLikeReq;
+import com.in.read.pojo.note.comment.NoteLikeReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

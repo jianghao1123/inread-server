@@ -1,6 +1,6 @@
 package com.in.read.pojo.note.comment;
 
-import com.in.read.pojo.note.UserVo;
+import com.in.read.pojo.note.user.UserVo;
 import lombok.Data;
 
 /**

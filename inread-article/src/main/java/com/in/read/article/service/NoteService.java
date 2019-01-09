@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.in.read.article.entity.Note;
 import com.in.read.framework.base.BaseService;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.pojo.note.NoteAddReq;
-import com.in.read.pojo.note.NotePageReq;
-import com.in.read.pojo.note.NoteVo;
+import com.in.read.pojo.note.comment.NoteAddReq;
+import com.in.read.pojo.note.comment.NotePageReq;
+import com.in.read.pojo.note.comment.NoteVo;
 
 /**
  * <p>

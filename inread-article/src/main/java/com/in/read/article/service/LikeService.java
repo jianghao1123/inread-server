@@ -1,9 +1,8 @@
 package com.in.read.article.service;
 
 import com.in.read.article.entity.Like;
-import com.in.read.article.entity.Note;
 import com.in.read.framework.base.BaseService;
-import com.in.read.pojo.note.NoteLikeReq;
+import com.in.read.pojo.note.comment.NoteLikeReq;
 
 /**
  * <p>

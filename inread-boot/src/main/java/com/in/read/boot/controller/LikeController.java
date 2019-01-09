@@ -1,17 +1,16 @@
-package com.in.read.article.controller;
+package com.in.read.boot.controller;
 
 
 import com.in.read.article.service.LikeService;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.protocol.R;
-import com.in.read.pojo.note.NoteLikeReq;
+import com.in.read.pojo.note.comment.NoteLikeReq;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 
 /**
  * <p>

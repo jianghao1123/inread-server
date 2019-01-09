@@ -1,4 +1,4 @@
-package com.in.read.article.security;
+package com.in.read.boot.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.in.read.article.entity.User;

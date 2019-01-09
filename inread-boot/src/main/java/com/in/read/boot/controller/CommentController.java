@@ -1,4 +1,4 @@
-package com.in.read.article.controller;
+package com.in.read.boot.controller;
 
 
 import com.in.read.article.service.CommentService;
@@ -6,10 +6,11 @@ import com.in.read.framework.protocol.R;
 import com.in.read.pojo.note.comment.CommentAddReq;
 import com.in.read.pojo.note.comment.CommentListReq;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>

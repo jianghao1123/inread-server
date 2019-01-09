@@ -1,4 +1,4 @@
-package com.in.read.pojo.note;
+package com.in.read.pojo.note.comment;
 
 import lombok.Data;
 

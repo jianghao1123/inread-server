@@ -1,9 +1,8 @@
-package com.in.read.article.controller;
+package com.in.read.boot.controller;
 
-
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>

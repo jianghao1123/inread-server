@@ -16,7 +16,7 @@ import com.in.read.framework.util.BeanUtil;
 import com.in.read.pojo.note.comment.CommentAddReq;
 import com.in.read.pojo.note.comment.CommentListReq;
 import com.in.read.pojo.note.comment.CommentVo;
-import com.in.read.pojo.note.UserVo;
+import com.in.read.pojo.note.user.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
