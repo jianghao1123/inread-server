@@ -1,4 +1,4 @@
-package com.in.read.article.entity;
+package com.in.read.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.in.read.framework.base.BaseEntity;
@@ -8,25 +8,29 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户
+ * 
  * </p>
  *
  * @author Generator
- * @since 2019-01-06
+ * @since 2019-01-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("inread_user")
-public class User extends BaseEntity {
+@TableName("inread_oauth_info")
+public class OauthInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private String avatar;
+    private Integer uid;
 
-    private String username;
+    private String province;
 
-    private String summary;
+    private String city;
+
+    private Integer gender;
+
+    private String language;
 
 
 }

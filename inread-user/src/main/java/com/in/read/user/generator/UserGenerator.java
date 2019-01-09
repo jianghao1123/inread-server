@@ -15,7 +15,7 @@ public class UserGenerator {
         generator.setPackageName("com.in.read.user");
         generator.setPackageDir("/inread-user/src/main/java");
         generator.setTablePrefix(new String[]{"inread_"});
-        generator.setIncludeTables(new String[]{"inread_user","inread_oauth"});
+        generator.setIncludeTables(new String[]{"inread_user","inread_oauth","inread_oauth_info"});
         generator.run();
     }
 }

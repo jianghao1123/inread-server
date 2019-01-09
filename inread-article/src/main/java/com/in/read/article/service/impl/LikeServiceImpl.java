@@ -38,7 +38,7 @@ public class LikeServiceImpl extends BaseServiceImpl<LikeMapper, Like> implement
         }
         like.setNoteId(req.getNoteId());
         like.setUid(uid);
-        like.setDelete(InreadConstant.DB_VALID);
+        like.setDeleted(InreadConstant.DB_VALID);
         like.setStatus(InreadConstant.DB_VALID);
         if (like.getId() == null) {
             baseMapper.insert(like);

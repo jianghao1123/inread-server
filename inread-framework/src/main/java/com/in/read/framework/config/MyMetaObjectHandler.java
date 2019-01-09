@@ -1,6 +1,7 @@
 package com.in.read.framework.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.in.read.framework.constant.InreadConstant;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.util.Date;
@@ -17,8 +18,17 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (createTime == null) {
             setFieldValByName("createTime", new Date(), metaObject);//mybatis-plus版本2.0.9+
         }
-        if(updateTime == null){
+        if (updateTime == null) {
             setFieldValByName("createTime", new Date(), metaObject);//mybatis-plus版本2.0.9+
+        }
+
+        Object delete = getFieldValByName("delete", metaObject);
+        Object status = getFieldValByName("status", metaObject);
+        if (delete == null) {
+            setFieldValByName("delete", InreadConstant.DB_VALID, metaObject);//mybatis-plus版本2.0.9+
+        }
+        if (status == null) {
+            setFieldValByName("status", InreadConstant.DB_VALID, metaObject);//mybatis-plus版本2.0.9+
         }
     }
 

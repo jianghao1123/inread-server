@@ -1,5 +1,6 @@
 package com.in.read.framework.exception;
 
+import com.in.read.framework.constant.ErrorCode;
 import lombok.Data;
 
 /**
@@ -12,6 +13,11 @@ public class BusinessException extends Exception{
 
     public BusinessException(){
 
+    }
+
+    public BusinessException(String msg){
+        this.code = ErrorCode.BUSINESS_ERROR_CODE;
+        this.msg = msg;
     }
 
     public BusinessException(ApiError apiError){

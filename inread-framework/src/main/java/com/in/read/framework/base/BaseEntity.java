@@ -37,5 +37,5 @@ public class BaseEntity {
      * 状态[0:未删除,1:删除]
      */
     @TableLogic
-    private int delete;
+    private int deleted;
 }

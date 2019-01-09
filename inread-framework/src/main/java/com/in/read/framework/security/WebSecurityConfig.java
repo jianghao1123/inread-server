@@ -24,6 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 登录
      */
     private static final String LOGIN_ENTRY_POINT = "/inread-api/login";
+
+    private static final String OAUTH_LOGIN_ENTRY_POINT = "/inread-api/oauth/login";
+
     /**
      * 刷新token
      */
@@ -76,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENTRY_POINT).permitAll() // Login end-point
+                .antMatchers(OAUTH_LOGIN_ENTRY_POINT).permitAll()
                 .antMatchers(TOKEN_REFRESH_ENTRY_POINT).permitAll() // Token refresh end-point
                 .antMatchers("/inread-api/note/list").permitAll()
                 .anyRequest().authenticated() // Protected API End-points

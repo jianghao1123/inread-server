@@ -1,9 +1,9 @@
 package com.in.read.boot.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.in.read.article.entity.User;
-import com.in.read.article.service.UserService;
 import com.in.read.framework.security.UserDetailsImpl;
+import com.in.read.user.entity.User;
+import com.in.read.user.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         int uid = Integer.valueOf(s);
-
+        if(uid == 0){
+            return null;
+        }
         User user = userService.getOne(new QueryWrapper<User>().lambda().eq(User::getId, uid));
         //获取角色
         if (user == null)

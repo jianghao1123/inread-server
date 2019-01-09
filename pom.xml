@@ -13,6 +13,7 @@
         <module>inread-framework</module>
         <module>inread-boot</module>
         <module>inread-pojo</module>
+        <module>inread-common</module>
     </modules>
 
 </project>

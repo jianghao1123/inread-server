@@ -3,3 +3,7 @@ server:
 spring:
   profiles:
     active: dev
+
+jwt:
+  secret: inread19901123
+  expiration: 604800000

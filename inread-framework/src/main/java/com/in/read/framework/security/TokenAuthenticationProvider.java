@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -32,16 +33,18 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Assert.notNull(authentication, "No authentication data provided");
-        String token = String.valueOf(authentication.getPrincipal());
-        int uid = jwtTokenUtil.validate(token);
-        UserDetails userDetails = userDetailsService
-                .loadUserByUsername(String.valueOf(uid));
-        if (userDetails == null
-                || !userDetails.isEnabled()) {
-            throw new UserAccessDeniedException("用户无权限");
+        UserDetails userDetails = null;
+        if(!StringUtils.isEmpty(authentication.getPrincipal())) {
+            String token = String.valueOf(authentication.getPrincipal());
+            int uid = jwtTokenUtil.validate(token);
+            userDetails = userDetailsService
+                    .loadUserByUsername(String.valueOf(uid));
+            if (userDetails == null
+                    || !userDetails.isEnabled()) {
+                throw new UserAccessDeniedException("用户无权限");
+            }
         }
-
-        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails == null ? null : userDetails.getAuthorities());
     }
 
     @Override

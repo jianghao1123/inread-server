@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.in.read.article.entity.Note;
-import com.in.read.article.entity.User;
 import com.in.read.article.mapper.NoteMapper;
-import com.in.read.article.mapper.UserMapper;
 import com.in.read.article.service.NoteService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.constant.InreadConstant;
@@ -18,6 +16,8 @@ import com.in.read.pojo.note.comment.NoteAddReq;
 import com.in.read.pojo.note.comment.NotePageReq;
 import com.in.read.pojo.note.comment.NoteVo;
 import com.in.read.pojo.note.user.UserVo;
+import com.in.read.user.entity.User;
+import com.in.read.user.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         IPage<Note> page = new Page<>(req.getPage(), req.getSize());
         page = baseMapper.selectPage(page, new QueryWrapper<Note>()
                 .lambda()
-                .eq(Note::getDelete, InreadConstant.DB_VALID)
+                .eq(Note::getDeleted, InreadConstant.DB_VALID)
                 .orderByDesc(Note::getCreateTime));
         return page.convert(note -> convert(note));
     }

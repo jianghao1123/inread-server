@@ -1,4 +1,4 @@
-package com.in.read.boot.pojo;
+package com.in.read.pojo.note.wx;
 
 import lombok.Data;
 
@@ -8,11 +8,12 @@ import lombok.Data;
 @Data
 public class WeChatUserInfo {
     private String avatarUrl;
-    private String Hangzhou;
+    private String city;
     private String country;
     private String China;
     private int gender;
     private String language;
     private String nickName;
     private String province;
+    private String unionId;
 }

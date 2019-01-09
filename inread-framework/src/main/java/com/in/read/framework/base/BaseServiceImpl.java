@@ -30,7 +30,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         entity.setCreateTime(now);
         entity.setUpdateTime(now);
         entity.setStatus(InreadConstant.DB_VALID);
-        entity.setDelete(InreadConstant.DB_VALID);
+        entity.setDeleted(InreadConstant.DB_VALID);
         return super.save(entity);
     }
 

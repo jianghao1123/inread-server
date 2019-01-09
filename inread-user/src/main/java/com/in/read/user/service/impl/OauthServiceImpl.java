@@ -1,17 +1,15 @@
 package com.in.read.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.in.read.user.entity.Oauth;
 import com.in.read.user.mapper.OauthMapper;
 import com.in.read.user.service.OauthService;
 import com.in.read.framework.base.BaseServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author Generator

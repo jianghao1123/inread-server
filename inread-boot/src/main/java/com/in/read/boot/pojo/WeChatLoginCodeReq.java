@@ -1,5 +1,6 @@
 package com.in.read.boot.pojo;
 
+import com.in.read.pojo.note.wx.WeChatUserInfo;
 import lombok.Data;
 
 /**
