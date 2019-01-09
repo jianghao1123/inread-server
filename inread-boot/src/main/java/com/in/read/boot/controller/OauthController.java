@@ -6,11 +6,11 @@ import com.in.read.boot.service.WeChatOAuthLoginService;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.protocol.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Generator
  * @since 2019-01-08
  */
-@Controller
+@RestController
 @RequestMapping("/inread-api/oauth")
 public class OauthController {
 

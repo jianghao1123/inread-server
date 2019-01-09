@@ -75,6 +75,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         User user = userMapper.selectById(note.getUid());
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user, userVo);
+        userVo.setUid(user.getId());
         noteVo.setUser(userVo);
         noteVo.setNoteId(note.getId());
         return noteVo;

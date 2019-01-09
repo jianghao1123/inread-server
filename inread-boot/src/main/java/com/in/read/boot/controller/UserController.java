@@ -1,8 +1,8 @@
 package com.in.read.boot.controller;
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Generator
  * @since 2019-01-06
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
