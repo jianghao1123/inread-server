@@ -15,7 +15,7 @@ public class ArticleGenerator {
         generator.setPackageName("com.in.read.article");
         generator.setPackageDir("/inread-article/src/main/java");
         generator.setTablePrefix(new String[]{"inread_"});
-        generator.setIncludeTables(new String[]{"inread_note","inread_comment","inread_like","inread_user"});
+        generator.setIncludeTables(new String[]{"inread_note","inread_comment","inread_like","inread_user","inread_note_interaction"});
         generator.run();
     }
 }
