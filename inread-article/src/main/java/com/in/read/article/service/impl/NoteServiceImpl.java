@@ -3,9 +3,14 @@ package com.in.read.article.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.in.read.article.entity.Like;
 import com.in.read.article.entity.Note;
+import com.in.read.article.entity.NoteInteraction;
+import com.in.read.article.mapper.LikeMapper;
+import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.mapper.NoteMapper;
 import com.in.read.article.service.NoteService;
+import com.in.read.common.DateUtil;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.constant.InreadConstant;
 import com.in.read.framework.exception.ApiErrorCode;
@@ -18,6 +23,7 @@ import com.in.read.pojo.note.comment.NoteVo;
 import com.in.read.pojo.note.user.UserVo;
 import com.in.read.user.entity.User;
 import com.in.read.user.mapper.UserMapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +41,12 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NoteInteractionMapper noteInteractionMapper;
+
+    @Autowired
+    private LikeMapper likeMapper;
 
     @Override
     public IPage<NoteVo> list(NotePageReq req) {
@@ -78,6 +90,25 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         userVo.setUid(user.getId());
         noteVo.setUser(userVo);
         noteVo.setNoteId(note.getId());
+        noteVo.setCreateDate(DateUtil.date2Str(note.getCreateTime(), DateUtil.MD_FORMAT));
+        if(!StringUtils.isEmpty(noteVo.getBook())) {
+            noteVo.setTitle(noteVo.getTitle() + "·" + noteVo.getBook());
+        }
+
+        NoteInteraction noteInteraction = noteInteractionMapper.selectOne(new QueryWrapper<NoteInteraction>()
+                .lambda().eq(NoteInteraction::getNoteId, note.getId()));
+        if(noteInteraction != null){
+            noteVo.setCommentNum(noteInteraction.getCommentNum());
+            noteVo.setLikeNum(noteInteraction.getLikeNum());
+            noteVo.setShareNum(noteInteraction.getShareNum());
+        }
+        if(UserUtil.getLoginUId() > 0) {
+            Like like = likeMapper.selectOne(new QueryWrapper<Like>().lambda()
+                    .eq(Like::getNoteId, note.getId()).eq(Like::getUid, UserUtil.getLoginUId()));
+            if(like != null) {
+                noteVo.setLiked(true);
+            }
+        }
         return noteVo;
     }
 }

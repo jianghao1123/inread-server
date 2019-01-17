@@ -14,7 +14,4 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface NoteMapper extends BaseMapper<Note> {
 
-    void incLike(@Param("nodeId") int nodeId);
-
-    void incComment(@Param("nodeId") int nodeId);
 }

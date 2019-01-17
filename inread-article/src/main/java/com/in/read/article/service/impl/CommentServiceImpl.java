@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.in.read.article.entity.Comment;
 import com.in.read.article.mapper.CommentMapper;
-import com.in.read.article.mapper.NoteMapper;
+import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.service.CommentService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.convert.ConvertUtils;
@@ -34,10 +34,10 @@ public class CommentServiceImpl
         implements CommentService {
 
     @Autowired
-    private NoteMapper noteMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private NoteInteractionMapper noteInteractionMapper;
 
     @Override
     public CommentVo add(CommentAddReq req) {
@@ -45,7 +45,7 @@ public class CommentServiceImpl
         BeanUtil.copyProperties(req, comment);
         comment.setFromUId(UserUtil.getLoginUId());
         baseMapper.insert(comment);
-        noteMapper.incComment(req.getNodeId());
+        noteInteractionMapper.incComment(req.getNodeId());
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
         User user = userMapper.selectById(UserUtil.getLoginUId());
         commentVo.setFromUser(ConvertUtils.convert(UserVo.class, user));

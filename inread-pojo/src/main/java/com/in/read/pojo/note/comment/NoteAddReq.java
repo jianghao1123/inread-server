@@ -11,4 +11,6 @@ public class NoteAddReq {
     private String book;
     private String author;
     private Integer noteId;
+    private String title;
+    private String picture;
 }

@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 文章表
  * </p>
  *
- * @author Generator
+ * @author Generatoro
  * @since 2019-01-06
  */
 @Data
@@ -28,8 +28,7 @@ public class Note extends BaseEntity {
 
     private String book;
     private String author;
-
-    private int likeNum;
-    private int commentNum;
+    private String title;
+    private String picture;
 
 }

@@ -2,6 +2,7 @@ package com.in.read.article.service.impl;
 
 import com.in.read.article.entity.Like;
 import com.in.read.article.mapper.LikeMapper;
+import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.mapper.NoteMapper;
 import com.in.read.article.service.LikeService;
 import com.in.read.framework.base.BaseServiceImpl;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class LikeServiceImpl extends BaseServiceImpl<LikeMapper, Like> implements LikeService {
 
     @Autowired
-    private NoteMapper noteMapper;
+    private NoteInteractionMapper noteInteractionMapper;
 
     @Override
     public void like(NoteLikeReq req) {
@@ -45,6 +46,6 @@ public class LikeServiceImpl extends BaseServiceImpl<LikeMapper, Like> implement
         } else {
             baseMapper.updateById(like);
         }
-        noteMapper.incLike(req.getNoteId());
+        noteInteractionMapper.incLike(req.getNoteId());
     }
 }
