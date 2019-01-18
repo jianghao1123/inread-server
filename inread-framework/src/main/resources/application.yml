@@ -3,6 +3,13 @@ server:
 spring:
   profiles:
     active: dev
+  tomcat:
+    uri-encoding: UTF-8
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
 
 jwt:
   secret: inread19901123

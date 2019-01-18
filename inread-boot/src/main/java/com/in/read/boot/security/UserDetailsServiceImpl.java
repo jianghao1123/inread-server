@@ -1,12 +1,8 @@
 package com.in.read.boot.security;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.in.read.framework.security.UserDetailsImpl;
-import com.in.read.user.entity.User;
-import com.in.read.user.service.UserService;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +13,7 @@ import org.springframework.stereotype.Service;
  * Created by luyun on 2018/8/1.
  */
 @Service
-@Qualifier("UserDetailsServiceImpl")
+@Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
