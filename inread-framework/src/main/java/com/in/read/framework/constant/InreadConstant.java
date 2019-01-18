@@ -9,5 +9,5 @@ public interface InreadConstant {
 
     int DB_VALID = 0;
 
-    String HEADER_TOKEN = "token";
+    String HEADER_TOKEN = "Inread-Auth-Token";
 }

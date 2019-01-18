@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -84,10 +85,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/inread-api/note/list").permitAll()
                 .anyRequest().authenticated() // Protected API End-points
                 .and()
-                .addFilterBefore(buildTokenProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(buildTokenProcessingFilter(), BasicAuthenticationFilter.class);
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
-
 }

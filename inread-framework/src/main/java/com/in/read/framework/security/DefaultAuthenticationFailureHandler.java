@@ -33,15 +33,8 @@ public class DefaultAuthenticationFailureHandler implements AuthenticationFailur
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException e) throws IOException, ServletException {
-
         response.setStatus(HttpStatus.OK.value());
-
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
-        if (e instanceof TokenExpiredException) {
-            mapper.writeValue(response.getWriter(), R.error(ApiErrorCode.AUTH_EXPIRE_ERROR));
-        } else {
-            mapper.writeValue(response.getWriter(), R.error(ApiErrorCode.AUTH_ERROR));
-        }
+        mapper.writeValue(response.getWriter(), R.error(ApiErrorCode.AUTH_ERROR));
     }
 }

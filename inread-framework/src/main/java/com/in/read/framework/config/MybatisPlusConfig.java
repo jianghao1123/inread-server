@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Profile;
  * Created by luyun on 2018/7/31.
  */
 @Configuration
-@MapperScan(basePackages = "com.in.read")
 public class MybatisPlusConfig {
     /*
      * 分页插件，自动识别数据库类型

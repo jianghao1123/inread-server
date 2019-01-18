@@ -65,7 +65,7 @@ public class JwtTokenUtil {
                     break;
                 }
                 if (expiresAt.before(new Date())) {
-                    throw new TokenExpiredException("Token过期");
+                    throw new TokenExpiredException("请重新登录");
                 }
                 Claim claim = jwt.getClaim(UID);
                 uid = claim.asInt();

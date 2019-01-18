@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.in.read.article.mapper.NoteInteractionMapper">
     <update id="incLike">
-        UPDATE inlike_note SET like_num = (like_num + 1) WHERE note_id=#{noteId}
+        UPDATE inread_note_interaction SET like_num = (like_num + 1) WHERE note_id=#{noteId}
     </update>
 
     <update id="incComment">
-        UPDATE inlike_note SET comment_num = (comment_num + 1) WHERE note_id=#{noteId}
+        UPDATE inread_note_interaction SET comment_num = (comment_num + 1) WHERE note_id=#{noteId}
     </update>
 
     <update id="incShare">
-        UPDATE inlike_note SET share_num = (share_num + 1) WHERE note_id=#{noteId}
+        UPDATE inread_note_interaction SET share_num = (share_num + 1) WHERE note_id=#{noteId}
     </update>
 </mapper>

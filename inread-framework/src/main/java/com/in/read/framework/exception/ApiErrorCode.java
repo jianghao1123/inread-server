@@ -12,7 +12,6 @@ public enum ApiErrorCode implements ApiError {
     PARAMETER_ERROR(ErrorCode.PARAMETER_ERROR_CODE, "参数错误"),
     BUSY_ERROR(ErrorCode.BUSY_ERROR_CODE, "系统繁忙"),
     AUTH_ERROR(ErrorCode.AUTH_ERROR_CODE, "请重新登录"),
-    AUTH_EXPIRE_ERROR(ErrorCode.AUTH_ERROR_CODE + 1, "刷新登录凭证"),
     ACCESS_ERROR(ErrorCode.ACCESS_ERROR, "非法操作"),
     BUSINESS_ERROR(ErrorCode.BUSINESS_ERROR_CODE, "系统异常");
 

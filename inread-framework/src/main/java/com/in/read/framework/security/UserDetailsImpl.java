@@ -20,7 +20,6 @@ public class UserDetailsImpl implements UserDetails {
 
     private GrantedAuthority authorities;
 
-    private Set<String> roles;
 
     private int status;
 
@@ -31,10 +30,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        roles.add("ROLE_USER");
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorities;
     }
 

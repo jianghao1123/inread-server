@@ -1,7 +1,6 @@
 package com.in.read.framework.security;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.in.read.framework.exception.UserAccessDeniedException;
+import com.in.read.framework.exception.TokenExpiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -33,7 +32,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Assert.notNull(authentication, "No authentication data provided");
-        UserDetails userDetails = null;
+        UserDetails userDetails;
         if(!StringUtils.isEmpty(authentication.getPrincipal())) {
             String token = String.valueOf(authentication.getPrincipal());
             int uid = jwtTokenUtil.validate(token);
@@ -41,8 +40,10 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
                     .loadUserByUsername(String.valueOf(uid));
             if (userDetails == null
                     || !userDetails.isEnabled()) {
-                throw new UserAccessDeniedException("用户无权限");
+                return null;
             }
+        }else{
+            return null;
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails == null ? null : userDetails.getAuthorities());
     }
