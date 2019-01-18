@@ -19,11 +19,11 @@ public class WXUtils {
     private static final String KEY_ALGORITHM = "AES";
     private static final String ALGORITHM_STR = "AES/CBC/PKCS7Padding";
 
-    public static String getUserInfo(String encryptDataB64, String sessionKeyB64, String ivB64) {
+    public static String getUserInfo(String encryptData, String sessionKey, String iv) {
         byte[] bytes = decrypt(
-                        Base64.decode(encryptDataB64),
-                        Base64.decode(sessionKeyB64),
-                        Base64.decode(ivB64));
+                Base64.decode(encryptData),
+                Base64.decode(sessionKey),
+                Base64.decode(iv));
         if (bytes == null) {
             return null;
         }

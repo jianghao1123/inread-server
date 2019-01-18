@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
  * Created by luyun on 2018/7/31.
  */
 @Configuration
-@MapperScan("com.in.read.*.mapper*")
+@MapperScan("com.in.read.*.mapper")
 public class MybatisPlusConfig {
     /*
      * 分页插件，自动识别数据库类型

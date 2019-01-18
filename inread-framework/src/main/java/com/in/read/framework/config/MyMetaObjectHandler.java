@@ -14,12 +14,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         // 更多查看源码测试用例
         Object createTime = getFieldValByName("createTime", metaObject);
-        Object updateTime = getFieldValByName("createTime", metaObject);
+        Object updateTime = getFieldValByName("updateTime", metaObject);
         if (createTime == null) {
             setFieldValByName("createTime", new Date(), metaObject);//mybatis-plus版本2.0.9+
         }
         if (updateTime == null) {
-            setFieldValByName("createTime", new Date(), metaObject);//mybatis-plus版本2.0.9+
+            setFieldValByName("updateTime", new Date(), metaObject);//mybatis-plus版本2.0.9+
         }
 
         Object delete = getFieldValByName("delete", metaObject);

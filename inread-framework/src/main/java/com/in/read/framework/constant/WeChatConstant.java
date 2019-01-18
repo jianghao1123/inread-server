@@ -9,5 +9,5 @@ public interface WeChatConstant {
     String CODE_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session?appid="
             + APP_ID + "&secret="
             + APP_SECRET
-            + "&js_code=JSCODE&grant_type=";
+            + "&js_code={code}&grant_type=authorization_code";
 }

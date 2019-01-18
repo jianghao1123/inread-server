@@ -9,4 +9,6 @@ import lombok.Data;
 @Data
 public class NotePageReq extends PageReq {
     private int type;
+    private long timestamp;
+    private boolean append;
 }

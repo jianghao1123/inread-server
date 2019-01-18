@@ -16,4 +16,5 @@ public class WeChatUserInfo {
     private String nickName;
     private String province;
     private String unionId;
+    private String openId;
 }

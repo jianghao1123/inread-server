@@ -1,5 +1,6 @@
 package com.in.read.framework.http;
 
+import com.in.read.framework.config.WXMappingFastJsonHttpMessageConverter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ public class RestHttp {
 
     public static <T> T get(Class<T> clz, String url, Map<String, String> queryMap) {
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new WXMappingFastJsonHttpMessageConverter());
         T entity = restTemplate.getForObject(url
                 , clz, queryMap);
         return entity;

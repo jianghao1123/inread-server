@@ -24,9 +24,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private int status;
 
-    public UserDetailsImpl(int uid, String userName, int status) {
-        this.userName = userName;
-        this.status = status;
+    public UserDetailsImpl(int uid) {
         this.uid = uid;
     }
 

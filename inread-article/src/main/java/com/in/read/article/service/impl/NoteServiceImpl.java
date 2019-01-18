@@ -28,6 +28,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * <p>
  * 文章表 服务实现类
@@ -50,11 +52,21 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
 
     @Override
     public IPage<NoteVo> list(NotePageReq req) {
-        IPage<Note> page = new Page<>(req.getPage(), req.getSize());
-        page = baseMapper.selectPage(page, new QueryWrapper<Note>()
-                .lambda()
-                .eq(Note::getDeleted, InreadConstant.DB_VALID)
-                .orderByDesc(Note::getCreateTime));
+        IPage<Note> page;
+        if(req.isAppend() && req.getTimestamp() > 0){
+            page = new Page<>(1, req.getSize());
+            page = baseMapper.selectPage(page, new QueryWrapper<Note>()
+                    .lambda()
+                    .eq(Note::getDeleted, InreadConstant.DB_VALID)
+                    .ge(Note::getCreateTime, new Date(req.getTimestamp()))
+                    .orderByDesc(Note::getCreateTime));
+        }else {
+            page = new Page<>(req.getPage(), req.getSize());
+            page = baseMapper.selectPage(page, new QueryWrapper<Note>()
+                    .lambda()
+                    .eq(Note::getDeleted, InreadConstant.DB_VALID)
+                    .orderByDesc(Note::getCreateTime));
+        }
         return page.convert(note -> convert(note));
     }
 
@@ -102,13 +114,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
             noteVo.setLikeNum(noteInteraction.getLikeNum());
             noteVo.setShareNum(noteInteraction.getShareNum());
         }
-        if(UserUtil.getLoginUId() > 0) {
-            Like like = likeMapper.selectOne(new QueryWrapper<Like>().lambda()
-                    .eq(Like::getNoteId, note.getId()).eq(Like::getUid, UserUtil.getLoginUId()));
-            if(like != null) {
-                noteVo.setLiked(true);
-            }
-        }
+        noteVo.setTimestamp(note.getCreateTime().getTime());
         return noteVo;
     }
 }

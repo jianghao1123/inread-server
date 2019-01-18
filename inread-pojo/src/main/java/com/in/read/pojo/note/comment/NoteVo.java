@@ -13,5 +13,5 @@ public class NoteVo extends NoteAddReq {
     private int likeNum;
     private int shareNum;
     private String createDate;
-    private boolean liked;
+    private long timestamp;
 }

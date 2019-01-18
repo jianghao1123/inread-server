@@ -20,22 +20,19 @@ import org.springframework.stereotype.Service;
 @Qualifier("UserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
-
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         if (!StringUtils.isNumeric(s)) {
             return null;
         }
         int uid = Integer.valueOf(s);
-        if(uid == 0){
+        if(uid <= 0){
             return null;
         }
-        User user = userService.getOne(new QueryWrapper<User>().lambda().eq(User::getId, uid));
-        //获取角色
-        if (user == null)
-            return null;
-        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getStatus());
+//        User user = userService.getOne(new QueryWrapper<User>().lambda().eq(User::getId, uid));
+//        //获取角色
+//        if (user == null)
+//            return null;
+        return new UserDetailsImpl(uid);
     }
 }

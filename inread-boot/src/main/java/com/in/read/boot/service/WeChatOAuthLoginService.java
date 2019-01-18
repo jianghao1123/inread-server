@@ -22,6 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by luyun on 2019/1/8.
  */
@@ -41,14 +45,16 @@ public class WeChatOAuthLoginService {
 
     public String login(WeChatLoginCodeReq req) throws BusinessException {
         try {
+            Map<String, String> uriVariables = new HashMap(1);
+            uriVariables.put("code",req.getCode());
             WeChatLoginResp resp = RestHttp.get(WeChatLoginResp.class
-                    , WeChatConstant.CODE_SESSION_URL + req.getCode()
-                    , null);
+                    , WeChatConstant.CODE_SESSION_URL
+                    , uriVariables);
             if (resp == null) {
                 throw new BusinessException("微信登录失败");
             }
             // 如果uid为空
-            if (StringUtils.isBlank(resp.getUnionId())) {
+            if (StringUtils.isBlank(resp.getOpenid())) {
                 if (StringUtils.isBlank(req.getEncryptedData())
                         || StringUtils.isBlank(req.getIv())
                         || StringUtils.isBlank(resp.getSessionKey())) {
@@ -60,10 +66,11 @@ public class WeChatOAuthLoginService {
                 WeChatUserInfo weChatUserInfo = JSON.parseObject(userInfo, WeChatUserInfo.class);
                 return getToken(weChatUserInfo);
             } else {
+                req.getUserInfo().setOpenId(resp.getOpenid());
                 return getToken(req.getUserInfo());
             }
         } catch (RestClientException e) {
-            logger.error("请求微信session失败:{1}", e.getMessage());
+            logger.error("请求微信session失败:" + e.getMessage());
         }
         throw new BusinessException("微信登录失败");
     }
@@ -72,12 +79,12 @@ public class WeChatOAuthLoginService {
         if (weChatUserInfo == null) {
             throw new BusinessException("获取用户信息失败");
         }
-        if (StringUtils.isBlank(weChatUserInfo.getUnionId())) {
-            throw new BusinessException("获取用户微信unionId失败");
+        if (StringUtils.isBlank(weChatUserInfo.getOpenId())) {
+            throw new BusinessException("获取用户微信openId失败");
         }
 
         Oauth oauth = oauthService.getOne(new QueryWrapper<Oauth>().lambda()
-                .eq(Oauth::getUnionId, weChatUserInfo.getUnionId())
+                .eq(Oauth::getUnionId, weChatUserInfo.getOpenId())
                 .eq(Oauth::getType, OAuthType.WeChat.getType()));
         int uid;
         if (oauth == null) {
