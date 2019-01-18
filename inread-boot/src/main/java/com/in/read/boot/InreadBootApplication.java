@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan("com.in.read")
-@MapperScan("com.in.read.*.mapper")
 public class InreadBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(InreadBootApplication.class, args);

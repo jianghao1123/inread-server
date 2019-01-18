@@ -2,6 +2,7 @@ package com.in.read.article.service;
 
 import com.in.read.article.entity.Like;
 import com.in.read.framework.base.BaseService;
+import com.in.read.framework.exception.BusinessException;
 import com.in.read.pojo.note.comment.NoteLikeReq;
 
 /**
@@ -13,5 +14,5 @@ import com.in.read.pojo.note.comment.NoteLikeReq;
  * @since 2019-01-06
  */
 public interface LikeService extends BaseService<Like> {
-    void like(NoteLikeReq req);
+    void like(NoteLikeReq req) throws BusinessException;
 }

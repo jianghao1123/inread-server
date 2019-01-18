@@ -36,6 +36,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         //更新填充
         //mybatis-plus版本2.0.9+
-        setFieldValByName("createTime", new Date(), metaObject);
+        setFieldValByName("updateTime", new Date(), metaObject);
     }
 }
