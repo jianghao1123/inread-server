@@ -20,10 +20,12 @@ public class EncodeWebMvcConfigurer implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         fastJsonConfig.setSerializerFeatures(
                 SerializerFeature.PrettyFormat
                 , SerializerFeature.WriteMapNullValue
-                , SerializerFeature.WriteNullListAsEmpty);
+                , SerializerFeature.WriteNullListAsEmpty
+                , SerializerFeature.WriteDateUseDateFormat);
         fastConverter.setFastJsonConfig(fastJsonConfig);
         MediaType[] mediaTypes = new MediaType[]{
                 MediaType.APPLICATION_JSON,

@@ -27,7 +27,7 @@ public class Comment extends BaseEntity {
     /**
      * 评论人id
      */
-    private int fromUId;
+    private int fromUid;
 
     /**
      * 被评论者，为0对note评论

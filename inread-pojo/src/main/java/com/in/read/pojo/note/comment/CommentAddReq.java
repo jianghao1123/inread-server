@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class CommentAddReq {
-    private int nodeId;
+    private int noteId;
     private String content;
     private int toUId;
 }

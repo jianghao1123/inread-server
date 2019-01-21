@@ -13,6 +13,9 @@ public class ConvertUtils {
 
 
     public static final <T, K> T convert(Class<T> clz, K k) {
+        if(k == null){
+            return null;
+        }
         try {
             T t = clz.newInstance();
             BeanUtils.copyProperties(k, t);

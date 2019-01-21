@@ -20,6 +20,10 @@ import com.in.read.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * <p>
  * 评论 服务实现类
@@ -43,12 +47,21 @@ public class CommentServiceImpl
     public CommentVo add(CommentAddReq req) {
         Comment comment = new Comment();
         BeanUtil.copyProperties(req, comment);
-        comment.setFromUId(UserUtil.getLoginUId());
+        comment.setFromUid(UserUtil.getLoginUId());
+        comment.setToUid(req.getToUId());
+        comment.setNoteId(req.getNoteId());
         baseMapper.insert(comment);
-        noteInteractionMapper.incComment(req.getNodeId());
+        noteInteractionMapper.incComment(req.getNoteId());
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
         User user = userMapper.selectById(UserUtil.getLoginUId());
         commentVo.setFromUser(ConvertUtils.convert(UserVo.class, user));
+        if(req.getToUId() > 0){
+            user = userMapper.selectById(req.getToUId());
+            commentVo.setToUId(req.getToUId());
+            if(user != null) {
+                commentVo.setToUser(ConvertUtils.convert(UserVo.class, user));
+            }
+        }
         return commentVo;
     }
 
@@ -63,11 +76,33 @@ public class CommentServiceImpl
     }
 
     private CommentVo convert(Comment comment) {
+        // 评论
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
-        User user = userMapper.selectById(comment.getFromUId());
+        User user = userMapper.selectById(comment.getFromUid());
         if (user != null) {
             commentVo.setFromUser(ConvertUtils.convert(UserVo.class, user));
         }
+        List<Comment> replyComments = baseMapper.selectReplyByNoteId(comment.getNoteId(), 1);
+        // 回复
+        if(replyComments != null && replyComments.size() > 0){
+            commentVo.setReplyItems(new ArrayList<>(1));
+            for(Comment replyComment : replyComments) {
+                CommentVo reply = ConvertUtils.convert(CommentVo.class, replyComment);
+                user = userMapper.selectById(replyComment.getFromUid());
+                if (user != null) {
+                    reply.setFromUser(ConvertUtils.convert(UserVo.class, user));
+                }
+                user = userMapper.selectById(replyComment.getToUid());
+                if (user != null) {
+                    reply.setToUser(ConvertUtils.convert(UserVo.class, user));
+                }
+                commentVo.getReplyItems().add(reply);
+            }
+
+        }else{
+            commentVo.setReplyItems(Collections.emptyList());
+        }
+
         return commentVo;
     }
 

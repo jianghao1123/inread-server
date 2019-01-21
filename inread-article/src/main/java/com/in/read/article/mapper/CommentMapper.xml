@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.in.read.article.mapper.CommentMapper">
+    <select id="selectByNoteId" resultType="com.in.read.article.entity.Comment">
+        SELECT * from inread_comment WHERE note_id=#{noteId} and to_uid = 0 LIMIT #{limitSize}
+    </select>
 
+    <select id="selectReplyByNoteId" resultType="com.in.read.article.entity.Comment">
+        SELECT * from inread_comment WHERE note_id=#{noteId} and to_uid > 0 LIMIT #{limitSize}
+    </select>
 </mapper>

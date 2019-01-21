@@ -3,6 +3,8 @@ package com.in.read.pojo.note.comment;
 import com.in.read.pojo.note.user.UserVo;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Created by luyun on 2019/1/6.
  */
@@ -14,4 +16,6 @@ public class NoteVo extends NoteAddReq {
     private int shareNum;
     private String createDate;
     private long timestamp;
+
+    private List<CommentVo> comments;
 }

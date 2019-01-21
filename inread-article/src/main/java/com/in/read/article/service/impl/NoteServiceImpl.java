@@ -3,9 +3,11 @@ package com.in.read.article.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.in.read.article.entity.Comment;
 import com.in.read.article.entity.Like;
 import com.in.read.article.entity.Note;
 import com.in.read.article.entity.NoteInteraction;
+import com.in.read.article.mapper.CommentMapper;
 import com.in.read.article.mapper.LikeMapper;
 import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.mapper.NoteMapper;
@@ -17,6 +19,7 @@ import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.security.UserUtil;
 import com.in.read.framework.util.BeanUtil;
+import com.in.read.pojo.note.comment.CommentVo;
 import com.in.read.pojo.note.comment.NoteAddReq;
 import com.in.read.pojo.note.comment.NotePageReq;
 import com.in.read.pojo.note.comment.NoteVo;
@@ -28,7 +31,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -49,6 +55,9 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
 
     @Autowired
     private LikeMapper likeMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Override
     public IPage<NoteVo> list(NotePageReq req) {
@@ -115,6 +124,27 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
             noteVo.setShareNum(noteInteraction.getShareNum());
         }
         noteVo.setTimestamp(note.getCreateTime().getTime());
+        List<Comment> comments = commentMapper.selectByNoteId(note.getId(), 1);
+        if(comments != null && comments.size() > 0){
+            List<CommentVo> commentVos = new ArrayList<>(1);
+            for(Comment comment : comments) {
+                CommentVo commentVo = new CommentVo();
+                commentVo.setContent(comment.getContent());
+                commentVo.setNoteId(note.getId());
+                commentVo.setToUId(comment.getToUid());
+                User commentUser = userMapper.selectById(comment.getFromUid());
+                if(commentUser != null){
+                    UserVo commentUserVo = new UserVo();
+                    BeanUtils.copyProperties(commentUser, commentUserVo);
+                    commentVo.setFromUser(commentUserVo);
+                }
+                commentVo.setToUser(null);
+                commentVos.add(commentVo);
+            }
+            noteVo.setComments(commentVos);
+        }else{
+            noteVo.setComments(Collections.emptyList());
+        }
         return noteVo;
     }
 }

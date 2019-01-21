@@ -49,7 +49,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
         Oauth oauth = new Oauth();
         oauth.setType(OAuthType.WeChat.getType());
-        oauth.setUnionId(oauth.getUnionId());
+        oauth.setUnionId(userInfo.getOpenId());
         oauth.setUid(user.getId());
         oauthMapper.insert(oauth);
         return user;
