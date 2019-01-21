@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by luyun on 2018/3/12.
@@ -20,7 +21,6 @@ public class EncodeWebMvcConfigurer implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         fastJsonConfig.setSerializerFeatures(
                 SerializerFeature.PrettyFormat
                 , SerializerFeature.WriteMapNullValue
@@ -41,7 +41,7 @@ public class EncodeWebMvcConfigurer implements WebMvcConfigurer {
         };
 
         fastConverter.setSupportedMediaTypes(Arrays.asList(mediaTypes));
-
         converters.add(fastConverter);
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
     }
 }
