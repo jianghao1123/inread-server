@@ -1,4 +1,4 @@
-package com.in.read.pojo.note.comment;
+package com.in.read.pojo.note.note;
 
 import com.in.read.pojo.note.PageReq;
 import lombok.Data;

@@ -15,5 +15,8 @@ public class CommentVo extends CommentAddReq {
     private UserVo toUser;
     // 回复列表
     private List<CommentVo> replyItems;
+    private int replyItemCount;
     private Date createTime;
+    private Integer id;
+    private int likeNum;
 }

@@ -2,7 +2,7 @@ package com.in.read.article.note;
 
 import com.in.read.article.service.NoteService;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.pojo.note.comment.NoteAddReq;
+import com.in.read.pojo.note.note.NoteAddReq;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

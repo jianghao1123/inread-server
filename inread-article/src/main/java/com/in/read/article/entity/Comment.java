@@ -41,5 +41,9 @@ public class Comment extends BaseEntity {
      */
     private String content;
 
+    private int commentPid;
+
+    private int likeNum;
+
 
 }

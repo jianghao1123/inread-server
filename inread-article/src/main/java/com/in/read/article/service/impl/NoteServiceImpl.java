@@ -20,9 +20,9 @@ import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.security.UserUtil;
 import com.in.read.framework.util.BeanUtil;
 import com.in.read.pojo.note.comment.CommentVo;
-import com.in.read.pojo.note.comment.NoteAddReq;
-import com.in.read.pojo.note.comment.NotePageReq;
-import com.in.read.pojo.note.comment.NoteVo;
+import com.in.read.pojo.note.note.NoteAddReq;
+import com.in.read.pojo.note.note.NotePageReq;
+import com.in.read.pojo.note.note.NoteVo;
 import com.in.read.pojo.note.user.UserVo;
 import com.in.read.user.entity.User;
 import com.in.read.user.mapper.UserMapper;
@@ -117,7 +117,8 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         }
 
         NoteInteraction noteInteraction = noteInteractionMapper.selectOne(new QueryWrapper<NoteInteraction>()
-                .lambda().eq(NoteInteraction::getNoteId, note.getId()));
+                .lambda()
+                .eq(NoteInteraction::getNoteId, note.getId()));
         if(noteInteraction != null){
             noteVo.setCommentNum(noteInteraction.getCommentNum());
             noteVo.setLikeNum(noteInteraction.getLikeNum());

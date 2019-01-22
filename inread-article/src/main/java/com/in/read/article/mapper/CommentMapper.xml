@@ -6,6 +6,10 @@
     </select>
 
     <select id="selectReplyByNoteId" resultType="com.in.read.article.entity.Comment">
-        SELECT * from inread_comment WHERE note_id=#{noteId} and to_uid > 0 LIMIT #{limitSize}
+        SELECT * from inread_comment WHERE note_id=#{noteId} and comment_pid=#{commentPid}  LIMIT #{limitSize}
     </select>
+
+    <update id="incLikeCount">
+        UPDATE inread_comment SET like_num = like_num+1 WHERE id=#{commentId}
+    </update>
 </mapper>

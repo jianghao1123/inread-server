@@ -24,6 +24,13 @@ public class Like extends BaseEntity {
 
     private int uid;
 
-    private int noteId;
+    private int indexId;
+
+    private int type;
+
+    public interface LikeType{
+        int NOTE = 0;
+        int COMMENT = 1;
+    }
 
 }

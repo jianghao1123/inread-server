@@ -50,6 +50,7 @@ public class CommentServiceImpl
         comment.setFromUid(UserUtil.getLoginUId());
         comment.setToUid(req.getToUId());
         comment.setNoteId(req.getNoteId());
+        comment.setCommentPid(req.getCommentPid());
         baseMapper.insert(comment);
         noteInteractionMapper.incComment(req.getNoteId());
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
@@ -82,7 +83,7 @@ public class CommentServiceImpl
         if (user != null) {
             commentVo.setFromUser(ConvertUtils.convert(UserVo.class, user));
         }
-        List<Comment> replyComments = baseMapper.selectReplyByNoteId(comment.getNoteId(), 1);
+        List<Comment> replyComments = baseMapper.selectReplyByNoteId(comment.getNoteId(),comment.getId(), 1);
         // 回复
         if(replyComments != null && replyComments.size() > 0){
             commentVo.setReplyItems(new ArrayList<>(1));
@@ -98,7 +99,10 @@ public class CommentServiceImpl
                 }
                 commentVo.getReplyItems().add(reply);
             }
-
+            commentVo.setReplyItemCount(baseMapper.selectCount(new QueryWrapper<Comment>()
+                    .lambda()
+                    .eq(Comment::getNoteId, comment.getNoteId())
+                    .eq(Comment::getCommentPid, comment.getId())));
         }else{
             commentVo.setReplyItems(Collections.emptyList());
         }

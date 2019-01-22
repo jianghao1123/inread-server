@@ -10,4 +10,5 @@ public class CommentAddReq {
     private int noteId;
     private String content;
     private int toUId;
+    private int commentPid;
 }

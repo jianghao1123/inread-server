@@ -17,5 +17,7 @@ import java.util.List;
 public interface CommentMapper extends BaseMapper<Comment> {
     List<Comment> selectByNoteId(@Param("noteId") int nodeId, @Param("limitSize")int limitSize);
 
-    List<Comment> selectReplyByNoteId(@Param("noteId") int nodeId, @Param("limitSize")int limitSize);
+    List<Comment> selectReplyByNoteId(@Param("noteId") int nodeId, @Param("commentPid")int commentPid, @Param("limitSize")int limitSize);
+
+    void incLikeCount(@Param("commentId") int commentId);
 }

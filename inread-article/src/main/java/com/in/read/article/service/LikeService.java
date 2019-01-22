@@ -3,7 +3,8 @@ package com.in.read.article.service;
 import com.in.read.article.entity.Like;
 import com.in.read.framework.base.BaseService;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.pojo.note.comment.NoteLikeReq;
+import com.in.read.pojo.note.comment.CommentLikeReq;
+import com.in.read.pojo.note.note.NoteLikeReq;
 
 /**
  * <p>
@@ -15,4 +16,5 @@ import com.in.read.pojo.note.comment.NoteLikeReq;
  */
 public interface LikeService extends BaseService<Like> {
     void like(NoteLikeReq req) throws BusinessException;
+    void like(CommentLikeReq req) throws BusinessException;
 }

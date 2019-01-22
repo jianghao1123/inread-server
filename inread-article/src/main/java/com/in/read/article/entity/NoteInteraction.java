@@ -30,4 +30,6 @@ public class NoteInteraction extends BaseEntity {
 
     private Integer shareNum;
 
+
+
 }
