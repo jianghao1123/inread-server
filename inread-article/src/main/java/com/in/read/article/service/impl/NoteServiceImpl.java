@@ -108,7 +108,6 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         User user = userMapper.selectById(note.getUid());
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user, userVo);
-        userVo.setUid(user.getId());
         noteVo.setUser(userVo);
         noteVo.setNoteId(note.getId());
         noteVo.setCreateDate(DateUtil.date2Str(note.getCreateTime(), DateUtil.MD_FORMAT));
@@ -132,14 +131,19 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
                 CommentVo commentVo = new CommentVo();
                 commentVo.setContent(comment.getContent());
                 commentVo.setNoteId(note.getId());
-                commentVo.setToUId(comment.getToUid());
+                commentVo.setToUid(comment.getToUid());
                 User commentUser = userMapper.selectById(comment.getFromUid());
                 if(commentUser != null){
                     UserVo commentUserVo = new UserVo();
                     BeanUtils.copyProperties(commentUser, commentUserVo);
                     commentVo.setFromUser(commentUserVo);
                 }
-                commentVo.setToUser(null);
+//                if(comment.getToUid() > 0) {
+//                    commentUser = userMapper.selectById(comment.getToUid());
+//                    UserVo commentUserVo = new UserVo();
+//                    BeanUtils.copyProperties(commentUser, commentUserVo);
+//                    commentVo.setToUser(commentUserVo);
+//                }
                 commentVos.add(commentVo);
             }
             noteVo.setComments(commentVos);

@@ -1,10 +1,14 @@
 server:
   port: 8090
+  use-forward-headers: true
 spring:
   profiles:
     active: dev
   tomcat:
     uri-encoding: UTF-8
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
+    port-header: X-Forwarded-Port
   http:
     encoding:
       force: true

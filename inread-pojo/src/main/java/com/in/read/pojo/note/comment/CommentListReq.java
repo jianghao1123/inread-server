@@ -9,4 +9,5 @@ import lombok.Data;
 @Data
 public class CommentListReq extends PageReq{
     private int noteId;
+    private int commentId;
 }

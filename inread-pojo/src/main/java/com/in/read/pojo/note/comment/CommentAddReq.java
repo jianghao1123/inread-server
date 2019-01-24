@@ -9,6 +9,6 @@ import lombok.Data;
 public class CommentAddReq {
     private int noteId;
     private String content;
-    private int toUId;
+    private int toUid;
     private int commentPid;
 }
