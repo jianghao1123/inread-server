@@ -17,6 +17,7 @@ public class NoteVo extends NoteAddReq {
     private int shareNum;
     private String createDate;
     private long timestamp;
+    private int articleId;
 
     private List<CommentVo> comments;
 }
