@@ -18,5 +18,6 @@ import com.in.read.pojo.note.note.NoteVo;
  */
 public interface NoteService extends BaseService<Note> {
     IPage<NoteVo> list(NotePageReq req);
+    NoteVo getNote(int id);
     void add(NoteAddReq req) throws BusinessException;
 }

@@ -22,10 +22,10 @@ public class ArticleController {
     public ArticleService articleService;
 
     @GetMapping("/detail")
-    public R getArticleDetail(@RequestParam("articleId") String articleId) throws BusinessException {
-        if(!StringUtils.isNumeric(articleId)){
+    public R getArticleDetail(@RequestParam("noteId") String noteId) throws BusinessException {
+        if(!StringUtils.isNumeric(noteId)){
             throw new BusinessException(ApiErrorCode.PARAMETER_ERROR);
         }
-        return R.ok(articleService.getById(Integer.parseInt(articleId)));
+        return R.ok(articleService.getArticle(Integer.parseInt(noteId)));
     }
 }

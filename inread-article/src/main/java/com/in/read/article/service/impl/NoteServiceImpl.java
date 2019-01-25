@@ -15,6 +15,7 @@ import com.in.read.article.service.NoteService;
 import com.in.read.common.DateUtil;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.constant.InreadConstant;
+import com.in.read.framework.convert.ConvertUtils;
 import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.security.UserUtil;
@@ -80,6 +81,15 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     }
 
     @Override
+    public NoteVo getNote(int id) {
+        Note note = baseMapper.selectById(id);
+        if(note != null){
+            return convert(note);
+        }
+        return null;
+    }
+
+    @Override
     public void add(NoteAddReq req) throws BusinessException {
         Note note;
         if (req.getNoteId() == null) {
@@ -103,8 +113,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     }
 
     private NoteVo convert(Note note) {
-        NoteVo noteVo = new NoteVo();
-        BeanUtils.copyProperties(note, noteVo);
+        NoteVo noteVo = ConvertUtils.convert(NoteVo.class, note);
         User user = userMapper.selectById(note.getUid());
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user, userVo);
