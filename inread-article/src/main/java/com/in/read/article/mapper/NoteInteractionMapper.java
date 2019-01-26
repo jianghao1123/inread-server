@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @since 2019-01-16
  */
 public interface NoteInteractionMapper extends BaseMapper<NoteInteraction> {
+
     void incLike(@Param("noteId") int nodeId);
 
     void incComment(@Param("noteId") int nodeId);

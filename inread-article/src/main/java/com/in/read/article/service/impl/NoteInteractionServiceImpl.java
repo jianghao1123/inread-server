@@ -5,6 +5,7 @@ import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.service.NoteInteractionService;
 import com.in.read.framework.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -17,4 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteInteractionServiceImpl extends BaseServiceImpl<NoteInteractionMapper, NoteInteraction> implements NoteInteractionService {
 
+    @Override
+    @Transactional
+    public void incShare(int noteId) {
+        baseMapper.incShare(noteId);
+    }
 }

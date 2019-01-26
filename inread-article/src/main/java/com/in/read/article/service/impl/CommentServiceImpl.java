@@ -80,7 +80,6 @@ public class CommentServiceImpl
         // 评论
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
         bindCommentUser(comment, commentVo);
-        User user;
         List<Comment> replyComments = baseMapper.selectReplyByNoteId(comment.getNoteId(),comment.getId(), 1);
         // 回复
         if(replyComments != null && replyComments.size() > 0){

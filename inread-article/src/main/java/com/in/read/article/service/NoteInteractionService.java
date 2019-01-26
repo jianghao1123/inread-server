@@ -12,5 +12,5 @@ import com.in.read.framework.base.BaseService;
  * @since 2019-01-16
  */
 public interface NoteInteractionService extends BaseService<NoteInteraction> {
-
+    void incShare(int nodeId);
 }

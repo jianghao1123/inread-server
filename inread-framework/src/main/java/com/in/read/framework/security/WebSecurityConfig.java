@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/inread-api/note/list").permitAll()
                 .antMatchers("/inread-api/comment/list").permitAll()
                 .antMatchers("/inread-api/article/detail").permitAll()
+                .antMatchers("/inread-api/note/share").permitAll()
                 .anyRequest().authenticated() // Protected API End-points
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

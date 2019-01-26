@@ -68,7 +68,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
             page = baseMapper.selectPage(page, new QueryWrapper<Note>()
                     .lambda()
                     .eq(Note::getDeleted, InreadConstant.DB_VALID)
-                    .ge(Note::getCreateTime, new Date(req.getTimestamp()))
+                    .gt(Note::getCreateTime, new Date(req.getTimestamp()))
                     .orderByDesc(Note::getCreateTime));
         }else {
             page = new Page<>(req.getPage(), req.getSize());
@@ -119,7 +119,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
         BeanUtils.copyProperties(user, userVo);
         noteVo.setUser(userVo);
         noteVo.setNoteId(note.getId());
-        noteVo.setCreateDate(DateUtil.date2Str(note.getCreateTime(), DateUtil.MD_FORMAT));
+        noteVo.setCreateDate(DateUtil.date2Str(note.getCreateTime(), DateUtil.MD_FORMAT) + " " + DateUtil.getWeekOfDate(note.getCreateTime()));
         if(!StringUtils.isEmpty(noteVo.getBook())) {
             noteVo.setTitle(noteVo.getTitle() + "·" + noteVo.getBook());
         }
