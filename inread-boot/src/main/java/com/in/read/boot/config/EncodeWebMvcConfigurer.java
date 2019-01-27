@@ -1,4 +1,4 @@
-package com.in.read.framework.config;
+package com.in.read.boot.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;

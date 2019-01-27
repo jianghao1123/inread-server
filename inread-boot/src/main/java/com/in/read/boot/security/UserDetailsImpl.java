@@ -1,4 +1,4 @@
-package com.in.read.framework.security;
+package com.in.read.boot.security;
 
 import com.in.read.framework.constant.InreadConstant;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.in.read.framework.config;
+package com.in.read.boot.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;

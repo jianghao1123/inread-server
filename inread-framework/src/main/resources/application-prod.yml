@@ -1,3 +1,7 @@
-zgl:
-  front:
-    host: https://appserver.zugeliang01.com
+spring:
+  datasource:
+    url: jdbc:mysql://172.16.24.17:3306/inread_online?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
+    username: inread_web
+    password: inread_web_2019_!@#
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource

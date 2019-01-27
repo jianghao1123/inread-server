@@ -1,4 +1,4 @@
-package com.in.read.framework.security;
+package com.in.read.boot.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

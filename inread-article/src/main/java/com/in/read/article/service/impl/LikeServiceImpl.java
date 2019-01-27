@@ -9,7 +9,6 @@ import com.in.read.article.service.LikeService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.constant.InreadConstant;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.framework.security.UserUtil;
 import com.in.read.pojo.note.comment.CommentLikeReq;
 import com.in.read.pojo.note.note.NoteLikeReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,7 @@ public class LikeServiceImpl extends BaseServiceImpl<LikeMapper, Like> implement
 
     @Override
     @Transactional
-    public void like(NoteLikeReq req) throws BusinessException {
-        int uid = UserUtil.getLoginUId();
+    public void like(int uid, NoteLikeReq req) throws BusinessException {
         Like like = baseMapper.selectOne(new QueryWrapper<Like>()
                 .lambda()
                 .eq(Like::getIndexId, req.getNoteId())
@@ -58,8 +56,7 @@ public class LikeServiceImpl extends BaseServiceImpl<LikeMapper, Like> implement
 
     @Override
     @Transactional
-    public void like(CommentLikeReq req) throws BusinessException {
-        int uid = UserUtil.getLoginUId();
+    public void like(int uid, CommentLikeReq req) throws BusinessException {
         Like like = baseMapper.selectOne(new QueryWrapper<Like>()
                 .lambda()
                 .eq(Like::getIndexId, req.getCommentId())

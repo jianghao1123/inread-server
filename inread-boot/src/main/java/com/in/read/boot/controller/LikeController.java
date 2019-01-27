@@ -2,6 +2,7 @@ package com.in.read.boot.controller;
 
 
 import com.in.read.article.service.LikeService;
+import com.in.read.boot.security.UserUtil;
 import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.protocol.R;
 import com.in.read.pojo.note.comment.CommentLikeReq;
@@ -30,13 +31,13 @@ public class LikeController {
 
     @PostMapping("/note")
     public R like(@Validated @RequestBody NoteLikeReq req) throws BusinessException {
-        likeService.like(req);
+        likeService.like(UserUtil.getLoginUId(), req);
         return R.ok();
     }
 
     @PostMapping("/comment")
     public R like(@Validated @RequestBody CommentLikeReq req) throws BusinessException {
-        likeService.like(req);
+        likeService.like(UserUtil.getLoginUId(), req);
         return R.ok();
     }
 }

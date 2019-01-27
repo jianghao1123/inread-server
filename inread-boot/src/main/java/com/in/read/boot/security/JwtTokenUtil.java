@@ -1,4 +1,4 @@
-package com.in.read.framework.security;
+package com.in.read.boot.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

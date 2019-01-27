@@ -7,8 +7,8 @@ import com.in.read.boot.pojo.WeChatLoginResp;
 import com.in.read.common.WXUtils;
 import com.in.read.framework.constant.WeChatConstant;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.framework.http.RestHttp;
-import com.in.read.framework.security.JwtTokenUtil;
+import com.in.read.boot.http.RestHttp;
+import com.in.read.boot.security.JwtTokenUtil;
 import com.in.read.pojo.note.wx.WeChatUserInfo;
 import com.in.read.user.constant.OAuthType;
 import com.in.read.user.entity.Oauth;
@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

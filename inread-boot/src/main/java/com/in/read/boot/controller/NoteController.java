@@ -3,6 +3,7 @@ package com.in.read.boot.controller;
 
 import com.in.read.article.service.NoteInteractionService;
 import com.in.read.article.service.NoteService;
+import com.in.read.boot.security.UserUtil;
 import com.in.read.framework.constant.ErrorCode;
 import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;
@@ -39,12 +40,12 @@ public class NoteController {
 
     @PostMapping("/list")
     public R getPartnerOrderList(@Validated @RequestBody NotePageReq req) {
-        return R.ok(noteService.list(req));
+        return R.ok(noteService.list(req)).cache();
     }
 
     @PostMapping("/add")
     public R add(@Validated @RequestBody NoteAddReq req) throws BusinessException {
-        noteService.add(req);
+        noteService.add(UserUtil.getLoginUId(), req);
         return R.ok();
     }
 

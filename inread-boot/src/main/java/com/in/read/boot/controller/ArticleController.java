@@ -26,6 +26,6 @@ public class ArticleController {
         if(!StringUtils.isNumeric(noteId)){
             throw new BusinessException(ApiErrorCode.PARAMETER_ERROR);
         }
-        return R.ok(articleService.getArticle(Integer.parseInt(noteId)));
+        return R.ok(articleService.getArticle(Integer.parseInt(noteId))).cache();
     }
 }

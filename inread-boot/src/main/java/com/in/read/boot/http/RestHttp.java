@@ -1,6 +1,6 @@
-package com.in.read.framework.http;
+package com.in.read.boot.http;
 
-import com.in.read.framework.config.WXMappingFastJsonHttpMessageConverter;
+import com.in.read.boot.config.WXMappingFastJsonHttpMessageConverter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

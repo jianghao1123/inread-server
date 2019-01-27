@@ -16,6 +16,6 @@ import com.in.read.pojo.note.comment.CommentVo;
  * @since 2019-01-06
  */
 public interface CommentService extends BaseService<Comment> {
-    CommentVo add(CommentAddReq req);
+    CommentVo add(int userId, CommentAddReq req);
     IPage<CommentVo> list(CommentListReq req);
 }

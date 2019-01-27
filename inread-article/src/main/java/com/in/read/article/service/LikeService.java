@@ -15,6 +15,6 @@ import com.in.read.pojo.note.note.NoteLikeReq;
  * @since 2019-01-06
  */
 public interface LikeService extends BaseService<Like> {
-    void like(NoteLikeReq req) throws BusinessException;
-    void like(CommentLikeReq req) throws BusinessException;
+    void like(int userId, NoteLikeReq req) throws BusinessException;
+    void like(int userId, CommentLikeReq req) throws BusinessException;
 }

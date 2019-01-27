@@ -1,4 +1,4 @@
-package com.in.read.framework.config;
+package com.in.read.boot.config;
 
 import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;

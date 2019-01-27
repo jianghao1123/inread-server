@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.in.read.article.entity.Comment;
-import com.in.read.article.entity.Like;
 import com.in.read.article.entity.Note;
 import com.in.read.article.entity.NoteInteraction;
 import com.in.read.article.mapper.CommentMapper;
@@ -18,7 +17,6 @@ import com.in.read.framework.constant.InreadConstant;
 import com.in.read.framework.convert.ConvertUtils;
 import com.in.read.framework.exception.ApiErrorCode;
 import com.in.read.framework.exception.BusinessException;
-import com.in.read.framework.security.UserUtil;
 import com.in.read.framework.util.BeanUtil;
 import com.in.read.pojo.note.comment.CommentVo;
 import com.in.read.pojo.note.note.NoteAddReq;
@@ -90,19 +88,19 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     }
 
     @Override
-    public void add(NoteAddReq req) throws BusinessException {
+    public void add(int uid, NoteAddReq req) throws BusinessException {
         Note note;
         if (req.getNoteId() == null) {
             note = new Note();
             BeanUtil.copyProperties(req, note);
-            note.setUid(UserUtil.getLoginUId());
+            note.setUid(uid);
             baseMapper.insert(note);
         } else {
             note = baseMapper.selectById(req.getNoteId());
             if (note == null) {
                 throw new BusinessException(ApiErrorCode.PARAMETER_ERROR);
             }
-            if (note.getUid() != UserUtil.getLoginUId()) {
+            if (note.getUid() != uid) {
                 throw new BusinessException(ApiErrorCode.ACCESS_ERROR);
             }
             note.setAuthor(req.getAuthor());

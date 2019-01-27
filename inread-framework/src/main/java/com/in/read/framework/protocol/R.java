@@ -14,12 +14,16 @@ public class R<T> {
     private static final int CODE_SUCCESS = ErrorCode.SUCCESS;
     private static final int CODE_BUSINESS_ERROR = ErrorCode.BUSINESS_ERROR_CODE;
     private static final String SUCCESS ="success";
+    // 缓存12个小时
+    private static final int EXPIRE_TIME = 1000 * 60 * 60 * 12;
 
     private int code = CODE_SUCCESS;
 
     private String msg = SUCCESS;
 
     private T data;
+
+    private long expireTime = 0;
 
     public R(){
     }
@@ -32,6 +36,11 @@ public class R<T> {
     public R(Throwable e){
         this.msg = e.getMessage();
         this.code = CODE_BUSINESS_ERROR;
+    }
+
+    public R cache(){
+        this.expireTime = EXPIRE_TIME;
+        return this;
     }
 
     public static final <T> R<T> ok(T data) {

@@ -1,6 +1,5 @@
 package com.in.read.boot.security;
 
-import com.in.read.framework.security.UserDetailsImpl;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;

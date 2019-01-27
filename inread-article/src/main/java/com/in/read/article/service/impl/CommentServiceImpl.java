@@ -9,7 +9,6 @@ import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.service.CommentService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.convert.ConvertUtils;
-import com.in.read.framework.security.UserUtil;
 import com.in.read.framework.util.BeanUtil;
 import com.in.read.pojo.note.comment.CommentAddReq;
 import com.in.read.pojo.note.comment.CommentListReq;
@@ -44,17 +43,17 @@ public class CommentServiceImpl
     private NoteInteractionMapper noteInteractionMapper;
 
     @Override
-    public CommentVo add(CommentAddReq req) {
+    public CommentVo add(int userId, CommentAddReq req) {
         Comment comment = new Comment();
         BeanUtil.copyProperties(req, comment);
-        comment.setFromUid(UserUtil.getLoginUId());
+        comment.setFromUid(userId);
         comment.setToUid(req.getToUid());
         comment.setNoteId(req.getNoteId());
         comment.setCommentPid(req.getCommentPid());
         baseMapper.insert(comment);
         noteInteractionMapper.incComment(req.getNoteId());
         CommentVo commentVo = ConvertUtils.convert(CommentVo.class, comment);
-        User user = userMapper.selectById(UserUtil.getLoginUId());
+        User user = userMapper.selectById(userId);
         commentVo.setFromUser(ConvertUtils.convert(UserVo.class, user));
         if(req.getToUid() > 0){
             user = userMapper.selectById(req.getToUid());
