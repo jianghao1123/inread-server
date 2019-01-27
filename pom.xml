@@ -22,17 +22,5 @@
         <module>inread-common</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.in.read.boot.InreadBootApplication</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 
 </project>
