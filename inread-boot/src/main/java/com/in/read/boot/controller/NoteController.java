@@ -13,10 +13,7 @@ import com.in.read.pojo.note.note.NotePageReq;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,8 +36,14 @@ public class NoteController {
     private NoteInteractionService noteInteractionService;
 
     @PostMapping("/list")
-    public R getPartnerOrderList(@Validated @RequestBody NotePageReq req) {
-        return R.ok(noteService.list(req)).cache();
+    public R getNoteList(@Validated @RequestBody NotePageReq req) {
+        return R.ok(noteService.list(req));
+    }
+
+    @GetMapping("/clear_list_cache")
+    public R clearNoteListCache() {
+        noteService.clearNoteListCache();
+        return R.ok();
     }
 
     @PostMapping("/add")

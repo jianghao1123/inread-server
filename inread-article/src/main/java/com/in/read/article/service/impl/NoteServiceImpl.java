@@ -3,13 +3,11 @@ package com.in.read.article.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.in.read.article.entity.Article;
 import com.in.read.article.entity.Comment;
 import com.in.read.article.entity.Note;
 import com.in.read.article.entity.NoteInteraction;
-import com.in.read.article.mapper.CommentMapper;
-import com.in.read.article.mapper.LikeMapper;
-import com.in.read.article.mapper.NoteInteractionMapper;
-import com.in.read.article.mapper.NoteMapper;
+import com.in.read.article.mapper.*;
 import com.in.read.article.service.NoteService;
 import com.in.read.common.DateUtil;
 import com.in.read.framework.base.BaseServiceImpl;
@@ -28,11 +26,13 @@ import com.in.read.user.mapper.UserMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,23 +58,19 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private ArticleMapper articleMapper;
+
     @Override
+    @Cacheable(value = NOTE_LIST_CACHE, key = "'NOTE_CACHE_' + #req.page + '_' + #req.size")
     public IPage<NoteVo> list(NotePageReq req) {
+        System.out.println("from db");
         IPage<Note> page;
-        if(req.isAppend() && req.getTimestamp() > 0){
-            page = new Page<>(1, req.getSize());
-            page = baseMapper.selectPage(page, new QueryWrapper<Note>()
-                    .lambda()
-                    .eq(Note::getDeleted, InreadConstant.DB_VALID)
-                    .gt(Note::getCreateTime, new Date(req.getTimestamp()))
-                    .orderByDesc(Note::getCreateTime));
-        }else {
-            page = new Page<>(req.getPage(), req.getSize());
-            page = baseMapper.selectPage(page, new QueryWrapper<Note>()
-                    .lambda()
-                    .eq(Note::getDeleted, InreadConstant.DB_VALID)
-                    .orderByDesc(Note::getCreateTime));
-        }
+        page = new Page<>(req.getPage(), req.getSize());
+        page = baseMapper.selectPage(page, new QueryWrapper<Note>()
+                .lambda()
+                .eq(Note::getDeleted, InreadConstant.DB_VALID)
+                .orderByDesc(Note::getCreateTime));
         return page.convert(note -> convert(note));
     }
 
@@ -88,13 +84,36 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     }
 
     @Override
+    @Transactional
     public void add(int uid, NoteAddReq req) throws BusinessException {
+        Article article = null;
+        if(req.getArticle() != null
+                && StringUtils.isNotBlank(req.getArticle().getContent())){
+            if(req.getArticle().getId() > 0){
+                article = articleMapper.selectById(req.getArticle().getId());
+                article.setContent(req.getArticle().getContent());
+                article.setType(req.getArticle().getType());
+                articleMapper.updateById(article);
+            }else{
+                article = new Article();
+                article.setContent(req.getArticle().getContent());
+                article.setType(req.getArticle().getType());
+                articleMapper.insert(article);
+            }
+        }
         Note note;
         if (req.getNoteId() == null) {
             note = new Note();
             BeanUtil.copyProperties(req, note);
             note.setUid(uid);
             baseMapper.insert(note);
+
+            NoteInteraction noteInteraction = new NoteInteraction();
+            noteInteraction.setNoteId(note.getId());
+            if(article != null){
+                note.setArticleId(article.getId());
+            }
+            noteInteractionMapper.insert(noteInteraction);
         } else {
             note = baseMapper.selectById(req.getNoteId());
             if (note == null) {
@@ -106,8 +125,20 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
             note.setAuthor(req.getAuthor());
             note.setBook(req.getBook());
             note.setContent(req.getContent());
+            note.setPicture(req.getPicture());
+            note.setTitle(req.getTitle());
+            if(article != null){
+                note.setArticleId(article.getId());
+            }
             baseMapper.updateById(note);
         }
+
+    }
+
+    @Override
+    @CacheEvict(value = NOTE_LIST_CACHE)
+    public void clearNoteListCache() {
+
     }
 
     private NoteVo convert(Note note) {

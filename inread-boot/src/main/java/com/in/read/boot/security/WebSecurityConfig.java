@@ -59,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(OAUTH_LOGIN_ENTRY_POINT).permitAll()
                 .antMatchers(TOKEN_REFRESH_ENTRY_POINT).permitAll() // Token refresh end-point
                 .antMatchers("/inread-api/note/list").permitAll()
+                .antMatchers("/inread-api/note/clear_list_cache").permitAll()
                 .antMatchers("/inread-api/comment/list").permitAll()
                 .antMatchers("/inread-api/article/detail").permitAll()
                 .antMatchers("/inread-api/note/share").permitAll()

@@ -17,7 +17,11 @@ import com.in.read.pojo.note.note.NoteVo;
  * @since 2019-01-06
  */
 public interface NoteService extends BaseService<Note> {
+
+    String NOTE_LIST_CACHE = "NOTE_LIST_CACHE";
+
     IPage<NoteVo> list(NotePageReq req);
     NoteVo getNote(int id);
     void add(int uid, NoteAddReq req) throws BusinessException;
+    void clearNoteListCache();
 }

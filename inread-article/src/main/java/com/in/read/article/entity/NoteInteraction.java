@@ -31,5 +31,12 @@ public class NoteInteraction extends BaseEntity {
     private Integer shareNum;
 
 
+    public NoteInteraction(){
+        this.noteId = 0;
+        this.likeNum = 0;
+        this.commentNum = 0;
+        this.shareNum = 0;
+    }
+
 
 }

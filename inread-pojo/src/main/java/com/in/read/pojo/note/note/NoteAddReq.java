@@ -13,4 +13,6 @@ public class NoteAddReq {
     private Integer noteId;
     private String title;
     private String picture;
+
+    private ArticleAddReq article;
 }
