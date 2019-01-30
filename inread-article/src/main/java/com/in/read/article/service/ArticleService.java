@@ -13,5 +13,8 @@ import com.in.read.pojo.note.note.ArticleVo;
  * @since 2019-01-24
  */
 public interface ArticleService extends BaseService<Article> {
+
+    String ARTICLE_DETAIL_CACHE = "ARTICLE_DETAIL_CACHE";
+
     ArticleVo getArticle(int noteId);
 }

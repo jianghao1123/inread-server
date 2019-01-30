@@ -9,6 +9,7 @@ import com.in.read.framework.convert.ConvertUtils;
 import com.in.read.pojo.note.note.ArticleVo;
 import com.in.read.pojo.note.note.NoteVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +27,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> 
     private NoteService noteService;
 
     @Override
+    @Cacheable(value = ARTICLE_DETAIL_CACHE, key = "'ARTICLE_DETAIL_CACHE_' + #noteId")
     public ArticleVo getArticle(int noteId) {
         NoteVo noteVo = noteService.getNote(noteId);
         if(noteVo != null) {

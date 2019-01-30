@@ -3,6 +3,7 @@ package com.in.read.boot.controller;
 
 import com.in.read.article.service.CommentService;
 import com.in.read.boot.security.UserUtil;
+import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.protocol.R;
 import com.in.read.pojo.note.comment.CommentAddReq;
 import com.in.read.pojo.note.comment.CommentListReq;
@@ -29,7 +30,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/add")
-    public R commentNote(@Validated @RequestBody CommentAddReq req) {
+    public R commentNote(@Validated @RequestBody CommentAddReq req) throws BusinessException {
         return R.ok(commentService.add(UserUtil.getLoginUId(), req));
     }
 

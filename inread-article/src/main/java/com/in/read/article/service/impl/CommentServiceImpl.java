@@ -9,6 +9,7 @@ import com.in.read.article.mapper.NoteInteractionMapper;
 import com.in.read.article.service.CommentService;
 import com.in.read.framework.base.BaseServiceImpl;
 import com.in.read.framework.convert.ConvertUtils;
+import com.in.read.framework.exception.BusinessException;
 import com.in.read.framework.util.BeanUtil;
 import com.in.read.pojo.note.comment.CommentAddReq;
 import com.in.read.pojo.note.comment.CommentListReq;
@@ -16,6 +17,7 @@ import com.in.read.pojo.note.comment.CommentVo;
 import com.in.read.pojo.note.user.UserVo;
 import com.in.read.user.entity.User;
 import com.in.read.user.mapper.UserMapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,13 @@ public class CommentServiceImpl
     private NoteInteractionMapper noteInteractionMapper;
 
     @Override
-    public CommentVo add(int userId, CommentAddReq req) {
+    public CommentVo add(int userId, CommentAddReq req) throws BusinessException {
+        if(StringUtils.isEmpty(req.getContent())){
+            throw new BusinessException("评论不能为空");
+        }
+        if(req.getContent().length() > 100){
+            throw new BusinessException("评论不能超过100个字");
+        }
         Comment comment = new Comment();
         BeanUtil.copyProperties(req, comment);
         comment.setFromUid(userId);
