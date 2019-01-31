@@ -64,7 +64,6 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     @Override
     @Cacheable(value = NOTE_LIST_CACHE, key = "'NOTE_CACHE_' + #req.page + '_' + #req.size")
     public IPage<NoteVo> list(NotePageReq req) {
-        System.out.println("from db");
         IPage<Note> page;
         page = new Page<>(req.getPage(), req.getSize());
         page = baseMapper.selectPage(page, new QueryWrapper<Note>()
@@ -136,7 +135,7 @@ public class NoteServiceImpl extends BaseServiceImpl<NoteMapper, Note> implement
     }
 
     @Override
-    @CacheEvict(value = NOTE_LIST_CACHE)
+    @CacheEvict(value = NOTE_LIST_CACHE, allEntries=true)
     public void clearNoteListCache() {
 
     }
