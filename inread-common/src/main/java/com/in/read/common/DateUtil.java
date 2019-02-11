@@ -36,4 +36,14 @@ public class DateUtil {
             w = 0;
         return WEEK_DAYS[w];
     }
+
+    public static final Date getDateAfter(int days){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, days);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return new Date(calendar.getTime().getTime());
+    }
 }
