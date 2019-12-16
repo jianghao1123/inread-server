@@ -5,3 +5,5 @@
 
 #### 软件架构
 Spring boot开发的一款小型应用
+
+![image](https://github.com/jianghao1123/inread-server/blob/master/1.jpeg)
